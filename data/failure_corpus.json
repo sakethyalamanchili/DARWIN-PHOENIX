@@ -1,0 +1,42 @@
+[
+  {
+    "corpus_id": "fc_001",
+    "description": "Off-by-one in loop boundary",
+    "code_snippet": "for i in range(len(lst) - 1):",
+    "failure_mode": "Skips last element when list is non-empty.",
+    "attack_vector": "boundary_values",
+    "lesson": "Use range(len(lst)) or enumerate(lst) to avoid fence-post errors."
+  },
+  {
+    "corpus_id": "fc_002",
+    "description": "Missing None guard",
+    "code_snippet": "def process(data): return data.strip()",
+    "failure_mode": "AttributeError when data is None.",
+    "attack_vector": "empty_input",
+    "lesson": "Guard with: if data is None: return ''"
+  },
+  {
+    "corpus_id": "fc_003",
+    "description": "Integer overflow via sys.maxsize",
+    "code_snippet": "result = a * b",
+    "failure_mode": "Silently overflows in C extensions; unexpected in pure Python but highlights assumption.",
+    "attack_vector": "integer_overflow",
+    "lesson": "Validate input ranges before arithmetic on untrusted data."
+  },
+  {
+    "corpus_id": "fc_004",
+    "description": "String/int type confusion",
+    "code_snippet": "def add(a, b): return a + b",
+    "failure_mode": "Returns '12' instead of 3 when called with add('1','2').",
+    "attack_vector": "type_confusion",
+    "lesson": "Add type hints and cast: int(a) + int(b) or assert isinstance."
+  },
+  {
+    "corpus_id": "fc_005",
+    "description": "Empty list passed to min/max",
+    "code_snippet": "return min(lst)",
+    "failure_mode": "ValueError: min() arg is an empty sequence.",
+    "attack_vector": "empty_input",
+    "lesson": "Guard: if not lst: return None (or raise with clear message)."
+  }
+]

@@ -1,0 +1,5 @@
+FROM python:3.11-slim
+RUN pip install pytest coverage bandit --no-cache-dir
+RUN useradd -m sandboxuser
+USER sandboxuser
+WORKDIR /sandbox

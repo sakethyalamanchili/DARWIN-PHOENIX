@@ -1,0 +1,22 @@
+[
+  {"probe_id": "probe_001", "task": "Write a function that returns the factorial of n.", "function_signature": "def factorial(n: int) -> int:"},
+  {"probe_id": "probe_002", "task": "Write a function that reverses a string.", "function_signature": "def reverse_string(s: str) -> str:"},
+  {"probe_id": "probe_003", "task": "Write a function that checks if a number is prime.", "function_signature": "def is_prime(n: int) -> bool:"},
+  {"probe_id": "probe_004", "task": "Write a function that flattens a nested list.", "function_signature": "def flatten(lst: list) -> list:"},
+  {"probe_id": "probe_005", "task": "Write a function that returns the nth Fibonacci number.", "function_signature": "def fibonacci(n: int) -> int:"},
+  {"probe_id": "probe_006", "task": "Write a function that counts word frequency in a string.", "function_signature": "def word_count(text: str) -> dict:"},
+  {"probe_id": "probe_007", "task": "Write a function that finds the longest common prefix of a list of strings.", "function_signature": "def longest_common_prefix(strs: list[str]) -> str:"},
+  {"probe_id": "probe_008", "task": "Write a function that checks if a string is a palindrome.", "function_signature": "def is_palindrome(s: str) -> bool:"},
+  {"probe_id": "probe_009", "task": "Write a function that merges two sorted lists.", "function_signature": "def merge_sorted(a: list[int], b: list[int]) -> list[int]:"},
+  {"probe_id": "probe_010", "task": "Write a function that returns all permutations of a list.", "function_signature": "def permutations(lst: list) -> list:"},
+  {"probe_id": "probe_011", "task": "Write a function that finds the maximum subarray sum.", "function_signature": "def max_subarray(nums: list[int]) -> int:"},
+  {"probe_id": "probe_012", "task": "Write a function that performs binary search.", "function_signature": "def binary_search(arr: list[int], target: int) -> int:"},
+  {"probe_id": "probe_013", "task": "Write a function that encodes a string using run-length encoding.", "function_signature": "def run_length_encode(s: str) -> str:"},
+  {"probe_id": "probe_014", "task": "Write a function that checks if two strings are anagrams.", "function_signature": "def are_anagrams(a: str, b: str) -> bool:"},
+  {"probe_id": "probe_015", "task": "Write a function that rotates a list by k positions.", "function_signature": "def rotate_list(lst: list, k: int) -> list:"},
+  {"probe_id": "probe_016", "task": "Write a function that returns the GCD of two integers.", "function_signature": "def gcd(a: int, b: int) -> int:"},
+  {"probe_id": "probe_017", "task": "Write a function that validates a balanced parentheses string.", "function_signature": "def is_balanced(s: str) -> bool:"},
+  {"probe_id": "probe_018", "task": "Write a function that removes duplicates from a list preserving order.", "function_signature": "def remove_duplicates(lst: list) -> list:"},
+  {"probe_id": "probe_019", "task": "Write a function that converts a Roman numeral string to an integer.", "function_signature": "def roman_to_int(s: str) -> int:"},
+  {"probe_id": "probe_020", "task": "Write a function that groups a list of words by their first letter.", "function_signature": "def group_by_first_letter(words: list[str]) -> dict:"}
+]
