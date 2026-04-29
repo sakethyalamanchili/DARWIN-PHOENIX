@@ -1,10 +1,10 @@
 # DARWIN-PHOENIX: The Complete Implementation & Research Masterbook
 
+**Author:** Saketh Yalamanchili — M.S. Data Science & Analytics, Florida Atlantic University  
 **Course:** COT6930: Generative Intelligence & Software Development Lifecycles  
 **Track:** Blue Sky Track — Spring 2026  
-**Target Venue:** NeurIPS 2026 Workshop on Agentic AI (AI/ML Track)  
-**Status:** EXPERIMENT 1 RUNNING — 91% complete (602/656 runs)  
-**Last Updated:** 2026-04-22 (Post Phase 6 — runners built, Exp 1 in progress)
+**Status:** ALL EXPERIMENTS COMPLETE — Paper published to arXiv  
+**Last Updated:** 2026-04-29 (Post publication — all 3 experiments complete, paper submitted)
 
 ---
 
@@ -25,6 +25,12 @@
 | v1.3 | 2026-04-21 | **Infra:** 90s hard timeout on OpenRouter client; retry logic catches `TimeoutError` |
 | v1.3 | 2026-04-21 | **Runner:** `--retry-errors` flag strips ERROR rows from CSV and re-runs them |
 | v1.3 | 2026-04-22 | **Exp 1:** 602/656 runs complete (91%) — preliminary results available |
+| v2.0 | 2026-04-29 | **ALL EXPERIMENTS COMPLETE** — Exp 1 (656 runs), Exp 2 (300 runs), Exp 3 (50 tasks) |
+| v2.0 | 2026-04-29 | **Paper:** Full LaTeX paper written (PAPER.tex), arXiv zip prepared |
+| v2.0 | 2026-04-29 | **Figures:** All 4 result figures + system architecture figure generated |
+| v2.0 | 2026-04-29 | **Finding:** Behavioral fingerprinting — ρ=0.720, degraded tasks 2.6× drift (p=0.0003) |
+| v2.0 | 2026-04-29 | **Finding:** Degradation ordering C(6.7%) < D(7.3%) < A(9.8%) < B(11.0%) — pilot evidence |
+| v2.0 | 2026-04-29 | **Finding:** Hallucination recovery step advantage Mann-Whitney p=0.010 |
 
 ---
 
@@ -427,7 +433,7 @@ Expected: all 20 runs complete, no `"pending"` final states, no errors.
 
 All three runners are fully implemented as of v1.3. Each supports resume (skips completed rows on restart) and exponential backoff retry on rate-limit / timeout errors (base 2s, max 120s, 6 attempts).
 
-### Exp 1 Runner (`experiments/exp1_runner.py`) — STATUS: 91% COMPLETE
+### Exp 1 Runner (`experiments/exp1_runner.py`) — STATUS: COMPLETE (656/656 runs)
 
 **Purpose:** 164 HumanEval+ tasks × 4 conditions = 656 runs. Primary evidence for mechanism hypothesis.
 
@@ -445,18 +451,18 @@ task_id, condition, af_class, af_score, combined_pass_at_k, adversarial_ratio,
 rounds_taken, termination_reason, wall_time_s, timestamp
 ```
 
-**Preliminary results (602/656 done, 2026-04-22):**
+**Final results (656/656 runs complete):**
 
-| Condition | correct | degraded | antifragile |
-|-----------|---------|---------|-------------|
-| A — Cooperative Baseline | 136 | 14 | 0 |
-| B — Failure-Augmented | 136 | 15 | 0 |
-| C — Full Co-Evolution | **142** | **8** | 0 |
-| D — Frozen Adversarial | 140 | 10 | 0 |
+| Condition | Correct | Degraded | Degraded% | Mean AF |
+|-----------|---------|----------|-----------|---------|
+| A — Baseline | 148 | 16 | 9.8% | 0.048 |
+| B — Corpus | 146 | 18 | 11.0% | 0.025 |
+| C — Co-Evolution | **153** | **11** | **6.7%** | 0.024 |
+| D — Frozen | 152 | 12 | 7.3% | 0.019 |
 
-Condition C lowest degraded rate — consistent with hypothesis. `antifragile` class requires multi-round convergence; most HumanEval tasks complete in Round 1. Full statistical tests pending completion.
+Fisher exact C vs B: OR=0.58, p=0.121 (pilot; 49% power). K-W across conditions: H=7.537, p=0.057. `antifragile` structurally unreachable — G6 Docker branch coverage gate not deployed.
 
-### Exp 2 Runner (`experiments/exp2_chaos.py`) — STATUS: PENDING
+### Exp 2 Runner (`experiments/exp2_chaos.py`) — STATUS: COMPLETE (300 runs)
 
 **Purpose:** Conditions A & C only. Toggle `injection_active=True` with `injected_failure_type` ∈ `["hallucination", "ctx_overflow", "timeout"]`. Measures `recovery_successful` and `recovery_steps` — tests pipeline resilience under mid-flight faults.
 
@@ -465,7 +471,7 @@ Condition C lowest degraded rate — consistent with hypothesis. `antifragile` c
 task_id, condition, injected_failure_type, af_class, recovery_successful, recovery_steps
 ```
 
-### Exp 3 Runner (`experiments/exp3_fingerprint.py`) — STATUS: PENDING
+### Exp 3 Runner (`experiments/exp3_fingerprint.py`) — STATUS: COMPLETE (50 tasks, Cond C)
 
 **Purpose:** Condition C only. Track `probe_fingerprint` across rounds via 20 fixed probe tasks. Compute `fingerprint_distance` between consecutive rounds to verify behavioral drift (genuine reasoning evolution vs. memorization). Required for G7 gate validation.
 
@@ -525,32 +531,41 @@ DARWIN-PHOENIX/
 
 ---
 
-## APPENDIX C: Preliminary Results & Analysis Roadmap
+## APPENDIX C: Final Results Summary
 
-### Exp 1 Snapshot (2026-04-22, 602/656 runs)
+All experiments complete as of 2026-04-29. Full statistical reports in `results/exp*_statistical_report.txt`.
 
-| Condition | N | correct | degraded | antifragile | degraded% |
-|-----------|---|---------|---------|-------------|-----------|
-| A — Baseline | 150 | 136 | 14 | 0 | 9.3% |
-| B — Corpus | 151 | 136 | 15 | 0 | 9.9% |
-| C — Co-Evolution | 150 | 142 | 8 | 0 | **5.3%** |
-| D — Frozen | 150 | 140 | 10 | 0 | 6.7% |
+### Exp 1 — Code Quality Across Conditions (656/656 runs)
 
-**Early interpretation:** Pattern C > D > A ≈ B emerging. Consistent with "arms race alone is sufficient" outcome from Chapter 8 table. Full 656 rows + Chi-squared test needed to confirm.
+| Condition | N | Correct | Degraded | Degraded% | Mean AF |
+|-----------|---|---------|----------|-----------|---------|
+| A — Baseline | 164 | 148 | 16 | 9.8% | 0.048 |
+| B — Corpus | 164 | 146 | 18 | 11.0% | 0.025 |
+| C — Co-Evolution | 164 | 153 | 11 | **6.7%** | 0.024 |
+| D — Frozen | 164 | 152 | 12 | 7.3% | 0.019 |
 
-**Why no `antifragile` yet?** G5 (af_delta ≥ 0.05) kills most runs at Round 1 — HumanEval tasks are simple enough that the generator solves them correctly on the first attempt, leaving no room for delta improvement. `antifragile` class likely requires harder benchmarks (HumanEval+ extended or MBPP) or reduced `max_rounds` threshold. This is a finding, not a bug.
+Fisher exact C vs B: OR=0.58, p=0.121. K-W: H=7.537, p=0.057. Study underpowered (49%); requires n≥342/condition for 80% power.
 
-### Post-Exp 1 Analysis Checklist
+**Why no `antifragile`:** G6 branch coverage gate requires `dp-sandbox` Docker image. Docker not deployed → `edge_coverage=0.0` all runs → G6 always fails → `antifragile` structurally unreachable. Measured degradation resistance and behavioral drift as proxies.
 
-```
-[ ] Verify 657 lines in exp1_results.csv (header + 656 data rows)
-[ ] Run --retry-errors to clean up any remaining ERROR rows
-[ ] Run analysis.py: af_class distribution per condition
-[ ] Chi-squared test: C vs B degraded rates
-[ ] Mann-Whitney U: af_score C vs B vs A vs D
-[ ] Generate Figure 1: af_class stacked bar (4 conditions)
-[ ] Generate Figure 2: degraded% bar with error bars
-[ ] Run Exp 2 (fault injection) — Conditions A & C
-[ ] Run Exp 3 (fingerprinting) — Condition C only
-[ ] Write paper sections: Method, Results, Discussion
-```
+### Exp 2 — Fault Recovery (300 runs)
+
+| Fault Type | Cond A | Cond C | Δ |
+|-----------|--------|--------|---|
+| Hallucination | 76.0% | 80.0% | +4.0 pp |
+| Context overflow | 78.0% | 86.0% | +8.0 pp |
+| Timeout | 84.0% | 82.0% | −2.0 pp |
+| Overall | 79.3% | 82.7% | +3.3 pp |
+
+Mann-Whitney hallucination step distributions: U=903, p=0.010. K-W fault type effect: H=10.498, p=0.005.
+
+### Exp 3 — Behavioral Fingerprint Drift (50 tasks, Cond C)
+
+| Round | N | Mean Distance | SD |
+|-------|---|---------------|----|
+| 1 | 49 | 0.000 | 0.000 |
+| 2 | 42 | 0.162 | 0.115 |
+| 3 | 31 | 0.174 | 0.115 |
+| 4 | 22 | 0.201 | 0.151 |
+
+Spearman ρ=0.720, p<0.0001. Degraded tasks: mean max drift 0.240 vs. 0.092 correct (2.6×, p=0.0003). K-W across rounds: H=95.112, p<0.0001.
