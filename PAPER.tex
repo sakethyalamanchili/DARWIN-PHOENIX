@@ -74,6 +74,36 @@
 \usepackage{enumitem}
 \setlist{noitemsep, topsep=4pt, partopsep=0pt}
 
+% --- Running headers ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\itshape DARWIN-PHOENIX: Behavioral Drift Under Adversarial Co-Evolution}
+\fancyhead[R]{\small\itshape Yalamanchili}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\small\thepage}%
+  \renewcommand{\headrulewidth}{0pt}}
+
+% --- Compact fractions ---
+\usepackage{nicefrac}
+
+% --- Keywords command ---
+\providecommand{\keywords}[1]{%
+  \vspace{6pt}\noindent\textbf{Keywords:}\enspace\textit{#1}\vspace{2pt}}
+
+% --- PDF metadata (machine readability — arXiv requirement) ---
+\hypersetup{
+  pdftitle   = {DARWIN-PHOENIX: Behavioral Drift Under Adversarial Co-Evolution
+                Predicts Code Quality Degradation in LLM Code Generation},
+  pdfauthor  = {Saketh Yalamanchili},
+  pdfsubject = {cs.SE; cs.LG},
+  pdfkeywords= {co-evolutionary AI, LLM code generation, behavioral fingerprinting,
+                adversarial testing, antifragility, LangGraph, Qwen3-32B},
+}
+
 % ============================================================
 \title{%
   \textbf{DARWIN-PHOENIX: Behavioral Drift Under Adversarial\\
@@ -82,8 +112,12 @@
 }
 
 \author{%
-  Saketh Yalamanchili\\
-  \textit{M.S. Data Science \& Analytics, Florida Atlantic University}%
+  Saketh Yalamanchili\thanks{%
+    Code, data, and full statistical reports available at
+    \url{https://github.com/sakethyalamanchili/DARWIN-PHOENIX}}\\[2pt]
+  \textit{M.S. Data Science \& Analytics}\\
+  \textit{Florida Atlantic University}\\[2pt]
+  \texttt{saketh.engineer@gmail.com}%
 }
 
 \date{}
@@ -125,6 +159,9 @@ principled tool for monitoring generator strategy stability, and motivate
 a powered follow-up study to confirm the directional degradation
 findings.
 \end{abstract}
+
+\keywords{co-evolutionary AI \and LLM code generation \and behavioral
+fingerprinting \and adversarial testing \and antifragility \and LangGraph}
 
 % ============================================================
 \section{Introduction}
