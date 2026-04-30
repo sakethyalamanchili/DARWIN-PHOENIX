@@ -1,13 +1,13 @@
 % ============================================================
 %  DARWIN-PHOENIX — Main Paper
 %  Compile: pdflatex PAPER.tex  (twice for cross-references)
-%  Requires: times, booktabs, amsmath, hyperref, listings, geometry
+%  Requires: mathptmx, booktabs, amsmath, hyperref, listings, geometry
 % ============================================================
 \documentclass[11pt,a4paper]{article}
 
 % --- Core packages ---
 \usepackage[margin=1in]{geometry}
-\usepackage{times}
+\usepackage{mathptmx}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{microtype}
@@ -39,7 +39,8 @@
 }
 
 % --- Hyperlinks ---
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,
+            breaklinks=true]{hyperref}
 \usepackage{url}
 
 % --- Spacing ---
@@ -691,10 +692,9 @@ These results motivate three concrete directions for future work:
 \end{enumerate}
 
 All code, data, and full statistical reports are available in the accompanying
-repository.
+repository at \url{https://github.com/sakethyalamanchili/DARWIN-PHOENIX}.
 
 % ============================================================
-\bibliographystyle{unsrt}
 \begin{thebibliography}{99}
 
 \bibitem{taleb2012}
@@ -811,7 +811,8 @@ below.
 
 \section{Statistical Details}
 
-Full statistical reports are provided in the accompanying repository:
+Full statistical reports are provided in the accompanying repository
+(\url{https://github.com/sakethyalamanchili/DARWIN-PHOENIX}):
 \begin{itemize}
   \item \texttt{results/exp1\_statistical\_report.txt}
   \item \texttt{results/exp2\_statistical\_report.txt}
