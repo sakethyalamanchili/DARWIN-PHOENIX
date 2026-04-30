@@ -1,16 +1,17 @@
 % ============================================================
 %  DARWIN-PHOENIX — Main Paper
 %  Compile: pdflatex PAPER.tex  (twice for cross-references)
-%  Requires: mathptmx, booktabs, amsmath, hyperref, listings, geometry
+%  Requires: newtxtext, newtxmath, booktabs, amsmath, hyperref, listings, geometry
 % ============================================================
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt,letterpaper]{article}
 
 % --- Core packages ---
 \usepackage[margin=1in]{geometry}
-\usepackage{mathptmx}
+\usepackage{newtxtext}          % Modern Times Roman text (replaces obsolete mathptmx)
+\usepackage{newtxmath}          % Matching Times math fonts
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{microtype}
+\usepackage{microtype}          % Subtle typographic improvements (kerning, spacing)
 
 % --- Math ---
 \usepackage{amsmath,amssymb}
@@ -23,7 +24,8 @@
 
 % --- Figures ---
 \usepackage{graphicx}
-\usepackage{caption}
+\usepackage[font=small,labelfont=bf,labelsep=period,
+            justification=justified,singlelinecheck=false]{caption}
 \usepackage{subcaption}
 
 % --- Code listings ---
@@ -31,36 +33,46 @@
 \lstset{
   basicstyle=\ttfamily\small,
   breaklines=true,
+  breakatwhitespace=false,
   frame=single,
-  backgroundcolor=\color{gray!8},
-  rulecolor=\color{gray!40},
-  xleftmargin=6pt,
-  xrightmargin=6pt,
+  backgroundcolor=\color{gray!7},
+  rulecolor=\color{gray!35},
+  xleftmargin=8pt,
+  xrightmargin=8pt,
+  showstringspaces=false,
+  columns=flexible,
 }
 
 % --- Hyperlinks ---
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,
+\usepackage[colorlinks=true,linkcolor=blue!70!black,
+            citecolor=blue!70!black,urlcolor=blue!70!black,
             breaklinks=true]{hyperref}
 \usepackage{url}
 
 % --- Spacing ---
 \usepackage{parskip}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt}
+\setlength{\parskip}{8pt plus 2pt minus 1pt}
 
 % --- Section formatting ---
 \usepackage{titlesec}
 \titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
 \titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
-\titleformat{\subsubsection}{\normalsize\bfseries\itshape}{\thesubsubsection}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\itshape\bfseries}{\thesubsubsection}{0.5em}{}
+\titlespacing*{\section}      {0pt}{14pt plus 4pt minus 2pt}{6pt plus 2pt}
+\titlespacing*{\subsection}   {0pt}{10pt plus 3pt minus 2pt}{4pt plus 1pt}
+\titlespacing*{\subsubsection}{0pt}{8pt  plus 2pt minus 1pt}{3pt}
 
 % --- Abstract styling ---
 \usepackage{abstract}
 \renewcommand{\abstractnamefont}{\normalfont\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\small}
+\setlength{\absleftindent}{0.5cm}
+\setlength{\absrightindent}{0.5cm}
 
 % --- Tight lists ---
 \usepackage{enumitem}
-\setlist{noitemsep, topsep=3pt}
+\setlist{noitemsep, topsep=4pt, partopsep=0pt}
 
 % ============================================================
 \title{%
