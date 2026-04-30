@@ -461,23 +461,6 @@ Mann-Whitney U on step distributions; Kruskal-Wallis across fault types.
 
 \subsection{Behavioral Fingerprint Drift}
 
-\begin{table}[htbp]
-\centering
-\caption{TF-IDF fingerprint distance by round ($n=50$ tasks, Condition~C).}
-\label{tab:fingerprint}
-\begin{tabular}{@{}rrrrrr@{}}
-\toprule
-\textbf{Round} & \textbf{N} & \textbf{Mean} & \textbf{SD}
-               & \textbf{Median} & \textbf{Range} \\
-\midrule
-1 (baseline) & 49 & 0.000 & 0.000 & 0.000 & 0.000--0.000 \\
-2            & 42 & 0.162 & 0.115 & 0.148 & 0.000--0.442 \\
-3            & 31 & 0.174 & 0.115 & 0.132 & 0.000--0.440 \\
-4            & 22 & 0.201 & 0.151 & 0.156 & 0.042--0.614 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 Round has a highly significant effect on fingerprint distance
 (Kruskal-Wallis $H = 95.112$, $p < 0.0001$; Figure~\ref{fig:fingerprint}, left).
 Distance increases monotonically with round number (Spearman $\rho = 0.720$,
@@ -499,6 +482,23 @@ be calibrated to encourage local refinement rather than global strategy
 replacement. Trajectory-aware termination that detects excessive drift and rolls
 back to the last high-quality version is a natural mitigation.
 
+\begin{table}[htbp]
+\centering
+\caption{TF-IDF fingerprint distance by round ($n=50$ tasks, Condition~C).}
+\label{tab:fingerprint}
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+\textbf{Round} & \textbf{N} & \textbf{Mean} & \textbf{SD}
+               & \textbf{Median} & \textbf{Range} \\
+\midrule
+1 (baseline) & 49 & 0.000 & 0.000 & 0.000 & 0.000--0.000 \\
+2            & 42 & 0.162 & 0.115 & 0.148 & 0.000--0.442 \\
+3            & 31 & 0.174 & 0.115 & 0.132 & 0.000--0.440 \\
+4            & 22 & 0.201 & 0.151 & 0.156 & 0.042--0.614 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.95\linewidth]{figures/fig1_fingerprint.png}
@@ -514,23 +514,6 @@ back to the last high-quality version is a natural mitigation.
 \end{figure}
 
 \subsection{Code Quality Across Conditions}
-
-\begin{table}[htbp]
-\centering
-\caption{Outcome distribution and AF score by condition ($n = 164$ tasks each).}
-\label{tab:quality}
-\begin{tabular}{@{}lrrrrr@{}}
-\toprule
-\textbf{Condition} & \textbf{N} & \textbf{Correct} & \textbf{Degraded}
-                   & \textbf{Degraded\%} & \textbf{Mean AF} \\
-\midrule
-A --- Baseline  & 164 & 148 & 16 & 9.8\%          & 0.048 \\
-B --- Corpus    & 164 & 146 & 18 & 11.0\%         & 0.025 \\
-C --- Co-Evol   & 164 & 153 & 11 & \textbf{6.7\%} & 0.024 \\
-D --- Frozen    & 164 & 152 & 12 & 7.3\%          & 0.019 \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 The ordering C $<$ D $<$ A $<$ B is monotonically consistent with the hypothesis
 that dynamic adversarial pressure drives degradation resistance
@@ -552,6 +535,23 @@ Notably, failure corpus augmentation (B) performs \emph{worse} than baseline (A)
 suggesting static failure examples without adaptive pressure introduce
 distributional bias or over-constrain the generator's solution space.
 
+\begin{table}[htbp]
+\centering
+\caption{Outcome distribution and AF score by condition ($n = 164$ tasks each).}
+\label{tab:quality}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{Condition} & \textbf{N} & \textbf{Correct} & \textbf{Degraded}
+                   & \textbf{Degraded\%} & \textbf{Mean AF} \\
+\midrule
+A --- Baseline  & 164 & 148 & 16 & 9.8\%          & 0.048 \\
+B --- Corpus    & 164 & 146 & 18 & 11.0\%         & 0.025 \\
+C --- Co-Evol   & 164 & 153 & 11 & \textbf{6.7\%} & 0.024 \\
+D --- Frozen    & 164 & 152 & 12 & 7.3\%          & 0.019 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.95\linewidth]{figures/fig2_quality.png}
@@ -566,25 +566,6 @@ distributional bias or over-constrain the generator's solution space.
 \end{figure}
 
 \subsection{Fault Recovery Under Injected Failures}
-
-\begin{table}[htbp]
-\centering
-\caption{Recovery rates by condition and fault type ($n = 50$ runs per cell).}
-\label{tab:recovery}
-\begin{tabular}{@{}lrrrr@{}}
-\toprule
-\textbf{Fault Type} & \textbf{Cond A} & \textbf{Cond C}
-                    & \textbf{$\Delta$} & \textbf{Cohen $h$} \\
-\midrule
-Hallucination    & 76.0\% & 80.0\% & $+4.0$~pp & 0.097  \\
-Context overflow & 78.0\% & 86.0\% & $+8.0$~pp & 0.209  \\
-Timeout          & 84.0\% & 82.0\% & $-2.0$~pp & $-0.053$ \\
-\midrule
-\textbf{Overall} & \textbf{79.3\%} & \textbf{82.7\%}
-                 & $\mathbf{+3.3}$~\textbf{pp} & \textbf{0.085} \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 Co-evolutionary hardening (C) achieves a 3.3~percentage-point overall recovery
 advantage (82.7\% vs.\ 79.3\%; Fisher exact $p = 0.278$; Cohen $h = 0.085$,
@@ -605,6 +586,25 @@ $p = 0.010$), with Condition~C showing a more efficient step distribution despit
 identical medians (both~1.0). Co-evolutionary hardening reduces recovery tail
 length for hallucination faults---the rate difference is modest (+4.0~pp) but
 the generator reaches recovery more consistently in fewer total attempts.
+
+\begin{table}[htbp]
+\centering
+\caption{Recovery rates by condition and fault type ($n = 50$ runs per cell).}
+\label{tab:recovery}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Fault Type} & \textbf{Cond A} & \textbf{Cond C}
+                    & \textbf{$\Delta$} & \textbf{Cohen $h$} \\
+\midrule
+Hallucination    & 76.0\% & 80.0\% & $+4.0$~pp & 0.097  \\
+Context overflow & 78.0\% & 86.0\% & $+8.0$~pp & 0.209  \\
+Timeout          & 84.0\% & 82.0\% & $-2.0$~pp & $-0.053$ \\
+\midrule
+\textbf{Overall} & \textbf{79.3\%} & \textbf{82.7\%}
+                 & $\mathbf{+3.3}$~\textbf{pp} & \textbf{0.085} \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}[htbp]
   \centering
