@@ -43,12 +43,6 @@
   columns=flexible,
 }
 
-% --- Hyperlinks ---
-\usepackage[colorlinks=true,linkcolor=blue!70!black,
-            citecolor=blue!70!black,urlcolor=blue!70!black,
-            breaklinks=true]{hyperref}
-\usepackage{url}
-
 % --- Spacing ---
 \usepackage{parskip}
 \setlength{\parindent}{0pt}
@@ -94,6 +88,12 @@
 \providecommand{\keywords}[1]{%
   \vspace{6pt}\noindent\textbf{Keywords:}\enspace\textit{#1}\vspace{2pt}}
 
+% --- Hyperlinks (loaded last — standard LaTeX practice) ---
+\usepackage[colorlinks=true,linkcolor=blue!70!black,
+            citecolor=blue!70!black,urlcolor=blue!70!black,
+            breaklinks=true]{hyperref}
+\usepackage{xurl}               % Better URL line-breaking (supersedes url package)
+
 % --- PDF metadata (machine readability — arXiv requirement) ---
 \hypersetup{
   pdftitle   = {DARWIN-PHOENIX: Behavioral Drift Under Adversarial Co-Evolution
@@ -117,7 +117,7 @@
     \url{https://github.com/sakethyalamanchili/DARWIN-PHOENIX}}\\[2pt]
   \textit{M.S. Data Science \& Analytics}\\
   \textit{Florida Atlantic University}\\[2pt]
-  \texttt{saketh.engineer@gmail.com}%
+  \texttt{syalamanchili2025@fau.edu}%
 }
 
 \date{}
